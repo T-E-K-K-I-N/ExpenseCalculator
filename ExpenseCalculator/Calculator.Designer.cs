@@ -352,6 +352,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(108, 41);
             this.textBox7.TabIndex = 5;
+            this.textBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox7_KeyPress);
             // 
             // labelTextRight
             // 
@@ -362,7 +363,6 @@
             this.labelTextRight.Size = new System.Drawing.Size(36, 19);
             this.labelTextRight.TabIndex = 6;
             this.labelTextRight.Text = "КМ.";
-            this.labelTextRight.Visible = false;
             // 
             // labelTextLeft
             // 
@@ -373,7 +373,6 @@
             this.labelTextLeft.Size = new System.Drawing.Size(165, 38);
             this.labelTextLeft.TabIndex = 7;
             this.labelTextLeft.Text = "ТС пройдет \r\nрастояние равное: ";
-            this.labelTextLeft.Visible = false;
             // 
             // groupBox3
             // 
@@ -406,6 +405,7 @@
             this.textBoxDistance.Size = new System.Drawing.Size(77, 23);
             this.textBoxDistance.TabIndex = 16;
             this.textBoxDistance.Visible = false;
+            this.textBoxDistance.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDistance_KeyPress);
             // 
             // radioButtonTime
             // 
@@ -414,7 +414,6 @@
             this.radioButtonTime.Name = "radioButtonTime";
             this.radioButtonTime.Size = new System.Drawing.Size(60, 19);
             this.radioButtonTime.TabIndex = 1;
-            this.radioButtonTime.TabStop = true;
             this.radioButtonTime.Text = "Время";
             this.radioButtonTime.UseVisualStyleBackColor = true;
             this.radioButtonTime.CheckedChanged += new System.EventHandler(this.radioButtonTime_CheckedChanged);
@@ -422,6 +421,7 @@
             // radioButtonDistance
             // 
             this.radioButtonDistance.AutoSize = true;
+            this.radioButtonDistance.Checked = true;
             this.radioButtonDistance.Location = new System.Drawing.Point(14, 22);
             this.radioButtonDistance.Name = "radioButtonDistance";
             this.radioButtonDistance.Size = new System.Drawing.Size(84, 19);
@@ -444,6 +444,7 @@
             this.Controls.Add(this.buttonCulculate);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Calculator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -91,26 +91,35 @@ namespace ExpenseCalculator
                     car = validator.TruckCreator(averageFuelConsumption, fuelTankCapacity, 
                         averageSpeed, remainingFuel, loadCapacity);
 
-
-                    if (radioButtonDistance.Checked is true)
+                    if (loadCapacity > 4999)
                     {
-                        distance = distanceCalculator.CalculateDistance(car);
-
-                        textBox7.Text = distance.ToString();
+                        MessageBox.Show("ТС перегружено и не сможет начать движение!", "Информация",
+                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        textBox7.Text = "0";
                     }
-                    else if(radioButtonTime.Checked is true)
+                    else
                     {
-                        double setDistance = Convert.ToDouble(textBoxDistance.Text);
-                        timeCalculator.CalculateTime(car, setDistance, out time, out replacingTheDistance);
-
-                        if (replacingTheDistance)
+                        if (radioButtonDistance.Checked is true)
                         {
-                            MessageBox.Show("Заданная дистанция больше той, которую может пройти ТС с учетом запаса хода!" +
-                                "\nРасчет времени ТС в пути производился с учетом этого нюанса!", "Информация",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            distance = distanceCalculator.CalculateDistance(car);
+
+                            textBox7.Text = distance.ToString();
                         }
-                        textBox7.Text = time.ToString();
+                        else if (radioButtonTime.Checked is true)
+                        {
+                            double setDistance = Convert.ToDouble(textBoxDistance.Text);
+                            timeCalculator.CalculateTime(car, setDistance, out time, out replacingTheDistance);
+
+                            if (replacingTheDistance)
+                            {
+                                MessageBox.Show("Заданная дистанция больше той, которую может пройти ТС с учетом запаса хода!" +
+                                    "\nРасчет времени ТС в пути производился с учетом этого нюанса!", "Информация",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            textBox7.Text = time.ToString();
+                        }
                     }
+                    
                 }
                 else if (radioButtonSportCar.Checked is true)
                 {
@@ -126,16 +135,20 @@ namespace ExpenseCalculator
                     }
                     else if (radioButtonTime.Checked is true)
                     {
-                        double setDistance = Convert.ToDouble(textBoxDistance.Text);
-                        timeCalculator.CalculateTime(car, setDistance, out time, out replacingTheDistance);
-
-                        if(replacingTheDistance)
+                        if (textBoxDistance.Text is not "")
                         {
-                            MessageBox.Show("Заданная дистанция больше той, которую может пройти ТС с учетом запаса хода!" +
-                                "\nРасчет времени ТС в пути производился с учетом этого нюанса!", "Информация",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            double setDistance = Convert.ToDouble(textBoxDistance.Text);
+                            timeCalculator.CalculateTime(car, setDistance, out time, out replacingTheDistance);
+
+                            if (replacingTheDistance)
+                            {
+                                MessageBox.Show("Заданная дистанция больше той, которую может пройти ТС с учетом запаса хода!" +
+                                    "\nРасчет времени ТС в пути производился с учетом этого нюанса!", "Информация",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            textBox7.Text = time.ToString();
                         }
-                        textBox7.Text = time.ToString();
+                        
                     }
                 }
             }
@@ -143,7 +156,7 @@ namespace ExpenseCalculator
 
 
         /// <summary>
-        /// Функция проверки на пустые поля
+        /// Функция проверки на пустые обязательные поля поля
         /// </summary>
         private bool CheckingFields()
         {
@@ -389,6 +402,21 @@ namespace ExpenseCalculator
             else { e.Handled = true; }
         }
 
+        private void textBoxDistance_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(e.KeyChar <= 47 || e.KeyChar >= 58) ||
+                (e.KeyChar == '\b') || (e.KeyChar == 44))
+            {
+                return;
+            }
+            else { e.Handled = true; }
+        }
+
+        private void textBox7_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         #endregion
 
         #region Активность полей
@@ -544,9 +572,11 @@ namespace ExpenseCalculator
 
 
 
+
+
+
         #endregion
 
-
-    
+        
     }
 }
